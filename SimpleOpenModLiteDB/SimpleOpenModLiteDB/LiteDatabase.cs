@@ -39,7 +39,6 @@ namespace SimpleOpenModLiteDB
             _database.Dispose();
         }
 
-
         public void Add(T item)
         {
             Collection.Insert(item);

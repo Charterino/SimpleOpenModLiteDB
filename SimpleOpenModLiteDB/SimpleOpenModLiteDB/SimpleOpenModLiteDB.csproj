@@ -363,7 +363,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="IStorable.cs" />
         <Compile Include="LiteDatabase.cs" />
         <Compile Include="ILiteDatabase.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
