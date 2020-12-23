@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,7 +10,7 @@
         <AppDesignerFolder>Properties</AppDesignerFolder>
         <RootNamespace>SimpleOpenModLiteDB</RootNamespace>
         <AssemblyName>SimpleOpenModLiteDB</AssemblyName>
-        <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+        <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,24 +33,353 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Reference Include="0Harmony, Version=2.0.4.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Lib.Harmony.2.0.4\lib\net45\0Harmony.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Autofac, Version=6.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
+          <HintPath>..\packages\Autofac.6.0.0\lib\netstandard2.0\Autofac.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Autofac.Extensions.DependencyInjection, Version=7.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da">
+          <HintPath>..\packages\Autofac.Extensions.DependencyInjection.7.1.0\lib\netstandard2.0\Autofac.Extensions.DependencyInjection.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="dnlib, Version=3.3.2.0, Culture=neutral, PublicKeyToken=50e96378b6e77999">
+          <HintPath>..\packages\dnlib.3.3.2\lib\net45\dnlib.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="JetBrains.Annotations, Version=2020.1.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325">
+          <HintPath>..\packages\JetBrains.Annotations.2020.1.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="LiteDB, Version=5.0.9.0, Culture=neutral, PublicKeyToken=4ee40123013c9f27">
           <HintPath>..\packages\LiteDB.5.0.9\lib\net45\LiteDB.dll</HintPath>
           <Private>True</Private>
         </Reference>
+        <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.1\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.CSharp" />
+        <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=2.0.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.2.0.4\lib\net45\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.Abstractions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.Abstractions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.Binder, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.Binder.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.Binder.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.CommandLine, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.CommandLine.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.CommandLine.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.EnvironmentVariables, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.EnvironmentVariables.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.EnvironmentVariables.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.FileExtensions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.FileExtensions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.FileExtensions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.Json, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.Json.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.Json.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Configuration.UserSecrets, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.DependencyInjection, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.3.1.10\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.DependencyModel, Version=2.0.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.DependencyModel.2.0.4\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.FileProviders.Abstractions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.FileProviders.Abstractions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Abstractions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.FileProviders.Physical, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.FileProviders.Physical.3.1.10\lib\netstandard2.0\Microsoft.Extensions.FileProviders.Physical.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.FileSystemGlobbing, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.FileSystemGlobbing.3.1.10\lib\netstandard2.0\Microsoft.Extensions.FileSystemGlobbing.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Hosting, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Hosting.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Hosting.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Hosting.Abstractions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Hosting.Abstractions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Localization, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Localization.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Localization.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Localization.Abstractions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Localization.Abstractions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Localization.Abstractions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Logging, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Logging.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Logging.Configuration, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.Configuration.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Logging.Console, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.Console.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Logging.Console.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Logging.Debug, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.Debug.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Logging.Debug.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Logging.EventLog, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.EventLog.3.1.10\lib\net461\Microsoft.Extensions.Logging.EventLog.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Logging.EventSource, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Logging.EventSource.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Logging.EventSource.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Options, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Options.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Options.ConfigurationExtensions.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.10.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+          <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.10\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="mscorlib" />
+        <Reference Include="NetEscapades.Configuration.Yaml, Version=2.0.1.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\NetEscapades.Configuration.Yaml.2.0.1\lib\net461\NetEscapades.Configuration.Yaml.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+          <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Nito.AsyncEx.Context, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Nito.AsyncEx.Context.5.1.0\lib\netstandard2.0\Nito.AsyncEx.Context.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Nito.AsyncEx.Tasks, Version=5.1.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Nito.AsyncEx.Tasks.5.1.0\lib\netstandard2.0\Nito.AsyncEx.Tasks.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Nito.Disposables, Version=2.2.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Nito.Disposables.2.2.0\lib\net461\Nito.Disposables.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="NuGet.Common, Version=5.8.0.6930, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\NuGet.Common.5.8.0\lib\net45\NuGet.Common.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="NuGet.Configuration, Version=5.8.0.6930, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\NuGet.Configuration.5.8.0\lib\net45\NuGet.Configuration.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="NuGet.Frameworks, Version=5.8.0.6930, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\NuGet.Frameworks.5.8.0\lib\net45\NuGet.Frameworks.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="NuGet.Packaging, Version=5.8.0.6930, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\NuGet.Packaging.5.8.0\lib\netstandard2.0\NuGet.Packaging.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="NuGet.Protocol, Version=5.8.0.6930, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\NuGet.Protocol.5.8.0\lib\netstandard2.0\NuGet.Protocol.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="NuGet.Resolver, Version=5.8.0.6930, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\NuGet.Resolver.5.8.0\lib\netstandard2.0\NuGet.Resolver.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="NuGet.Versioning, Version=5.8.0.6930, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+          <HintPath>..\packages\NuGet.Versioning.5.8.0\lib\net45\NuGet.Versioning.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="OpenMod.API, Version=2.3.8.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\OpenMod.API.2.3.8\lib\net461\OpenMod.API.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="OpenMod.Core, Version=2.3.8.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\OpenMod.Core.2.3.8\lib\net461\OpenMod.Core.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="OpenMod.NuGet, Version=2.3.8.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\OpenMod.NuGet.2.3.8\lib\net461\OpenMod.NuGet.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="OpenMod.Runtime, Version=2.3.8.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\OpenMod.Runtime.2.3.8\lib\net461\OpenMod.Runtime.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="ReadLine, Version=2.0.1.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\ReadLine.2.0.1\lib\netstandard2.0\ReadLine.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Semver, Version=2.0.6.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>..\packages\Semver.2.0.6\lib\net452\Semver.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.2.10.0\lib\net46\Serilog.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog.Extensions.Hosting, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.Extensions.Hosting.3.1.0\lib\netstandard2.0\Serilog.Extensions.Hosting.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog.Extensions.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.Extensions.Logging.3.0.1\lib\netstandard2.0\Serilog.Extensions.Logging.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog.Settings.Configuration, Version=3.1.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.Settings.Configuration.3.1.0\lib\net461\Serilog.Settings.Configuration.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog.Sinks.Async, Version=1.4.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.Sinks.Async.1.4.0\lib\net461\Serilog.Sinks.Async.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog.Sinks.Console, Version=3.1.1.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.Sinks.Console.3.1.1\lib\net45\Serilog.Sinks.Console.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog.Sinks.File, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.Sinks.File.4.1.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="Serilog.Sinks.RollingFile, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10">
+          <HintPath>..\packages\Serilog.Sinks.RollingFile.3.3.0\lib\net45\Serilog.Sinks.RollingFile.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="SmartFormat, Version=2.5.3.0, Culture=neutral, PublicKeyToken=568866805651201f">
+          <HintPath>..\packages\SmartFormat.NET.2.5.3\lib\net462\SmartFormat.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System" />
+        <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Collections.Immutable, Version=1.2.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Collections.Immutable.1.4.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.ComponentModel.DataAnnotations" />
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
+        <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Diagnostics.EventLog, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Diagnostics.EventLog.4.7.0\lib\net461\System.Diagnostics.EventLog.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.IO.Compression" />
+        <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Numerics" />
+        <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System.Runtime" />
+        <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Security" />
+        <Reference Include="System.Security.Cryptography.Cng, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Security.Cryptography.Cng.5.0.0-preview.3.20214.6\lib\net462\System.Security.Cryptography.Cng.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Security.Cryptography.Pkcs, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Security.Cryptography.Pkcs.5.0.0-preview.3.20214.6\lib\net461\System.Security.Cryptography.Pkcs.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Security.Principal.Windows, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          <HintPath>..\packages\System.Security.Principal.Windows.4.7.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Text.Encodings.Web, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Text.Encodings.Web.4.7.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Text.Json, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Text.Json.4.7.2\lib\net461\System.Text.Json.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
+        <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+          <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
         <Reference Include="System.Xml" />
+        <Reference Include="System.Xml.Linq" />
+        <Reference Include="YamlDotNet, Version=6.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e">
+          <HintPath>..\packages\YamlDotNet.6.1.2\lib\net45\YamlDotNet.dll</HintPath>
+          <Private>True</Private>
+        </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Database.cs" />
+        <Compile Include="IStorable.cs" />
+        <Compile Include="LiteDatabase.cs" />
+        <Compile Include="ILiteDatabase.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
       <None Include="packages.config" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+      <PropertyGroup>
+        <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+      </PropertyGroup>
+      <Error Condition="!Exists('..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.props'))" />
+      <Error Condition="!Exists('..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets'))" />
+    </Target>
+    <Import Project="..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets" Condition="Exists('..\packages\Microsoft.Extensions.Configuration.UserSecrets.3.1.10\build\netstandard2.0\Microsoft.Extensions.Configuration.UserSecrets.targets')" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
