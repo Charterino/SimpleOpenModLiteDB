@@ -50,7 +50,10 @@ namespace SimpleOpenModLiteDB
             return Collection.FindAll().GetEnumerator();
         }
 
-        public void Update(T item) => Collection.Update(item);
+        public void Update(T item)
+        {
+            Collection.Update(item);
+        }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
