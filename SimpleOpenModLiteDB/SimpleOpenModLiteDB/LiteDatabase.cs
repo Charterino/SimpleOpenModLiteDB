@@ -30,8 +30,14 @@ namespace SimpleOpenModLiteDB
                 Directory.CreateDirectory(databaseFolderPath);
             }
             Path = System.IO.Path.Combine(databaseFolderPath, typeof(T).Name + ".db");
-            _database = new LiteDatabase(Path);
+            _database = new LiteDatabase(BuildSharedConnectionString(Path));
             Collection = _database.GetCollection<T>(typeof(T).Name);
+        }
+
+        //this is a temporal solution. Instead of making the service singleton (which I couldnt do) we allow shared connections.
+        public static string BuildSharedConnectionString(string path)
+        {
+            return $"Filename={path};Connection=shared";
         }
         
         public void Dispose()
