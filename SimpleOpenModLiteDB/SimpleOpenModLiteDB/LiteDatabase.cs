@@ -11,37 +11,44 @@ using OpenMod.API.Ioc;
 using OpenMod.API.Persistence;
 using OpenMod.API.Prioritization;
 using OpenMod.Runtime;
+using ILogger = Serilog.ILogger;
 
 namespace SimpleOpenModLiteDB
 {
-    [ServiceImplementation(Lifetime = ServiceLifetime.Singleton, Priority = Priority.Lowest)]
+    [ServiceImplementation(Lifetime = ServiceLifetime.Transient, Priority = Priority.Lowest)]
     public class LiteDatabase<T> : ILiteDatabase<T>, IDisposable
     {
         public string Path;
         public ILiteCollection<T> Collection;
 
         private LiteDatabase _database;
+
+        private readonly ILogger<LiteDatabase> m_Logger;
         
-        public LiteDatabase(IRuntime runtime)
+        public LiteDatabase(IOpenModHost host, ILogger<LiteDatabase> logger)
         {
-            var databaseFolderPath = System.IO.Path.Combine(runtime.WorkingDirectory, "databases");
+            m_Logger = logger;
+            var databaseFolderPath = System.IO.Path.Combine(host.WorkingDirectory, "databases");
             if (!Directory.Exists(databaseFolderPath))
             {
                 Directory.CreateDirectory(databaseFolderPath);
             }
             Path = System.IO.Path.Combine(databaseFolderPath, typeof(T).Name + ".db");
             _database = new LiteDatabase(BuildSharedConnectionString(Path));
+            
             Collection = _database.GetCollection<T>(typeof(T).Name);
+            _database.Commit();
         }
 
         //this is a temporal solution. Instead of making the service singleton (which I couldnt do) we allow shared connections.
         public static string BuildSharedConnectionString(string path)
         {
-            return $"Filename={path};Connection=shared";
+            return $"Filename={path};Connection=Shared";
         }
         
         public void Dispose()
         {
+            m_Logger.LogInformation("DISPOSING");
             _database.Dispose();
         }
 
@@ -57,7 +64,8 @@ namespace SimpleOpenModLiteDB
 
         public void Update(T item)
         {
-            Collection.Update(item);
+            m_Logger.LogInformation($"UPDATING {item}");
+            m_Logger.LogInformation(Collection.Update(item).ToString());
         }
 
         IEnumerator IEnumerable.GetEnumerator()
